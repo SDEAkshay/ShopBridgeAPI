@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/ShopBridge/.vs/ShopBridge
+/ShopBridge/ShopBridge/bin/Debug/net5.0
+/ShopBridge/ShopBridge/obj
+/ShopBridge/SHopBridgeUnitTest/bin/Debug/net5.0
+/ShopBridge/SHopBridgeUnitTest/obj
