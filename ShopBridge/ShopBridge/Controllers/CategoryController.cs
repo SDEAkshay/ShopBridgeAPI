@@ -20,6 +20,7 @@ namespace ShopBridge.Controllers
             this.categoryRepository = categoryRepository;
         }
 
+        // GET: /api/category
         [HttpGet]
         public async Task<ActionResult> GetCategories([FromQuery] int page, [FromQuery] int page_size)
         {
@@ -37,6 +38,7 @@ namespace ShopBridge.Controllers
             }
         }
 
+        // GET: /api/category/{id}
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {

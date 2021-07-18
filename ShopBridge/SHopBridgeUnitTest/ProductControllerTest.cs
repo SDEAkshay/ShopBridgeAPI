@@ -12,10 +12,11 @@ namespace ShopBridgeUnitTest
 {
     public class ProductControllerTest
     {
-        public Mock<IProductRepository> mock = new Mock<IProductRepository>();
+        private Mock<IProductRepository> repositoryStub = new Mock<IProductRepository>();
 
+  
         [Fact]
-        public async Task GetProducts_ShouldReturnAllProducts()
+        public async Task GetProductsAync_WithExistingItem_ReturnsExpectedItems()
         {
             var productDTO = new List<Product>()
             {
@@ -174,15 +175,15 @@ namespace ShopBridgeUnitTest
                 
             };
 
-            mock.Setup(p => p.GetProducts()).ReturnsAsync(productDTO);
-            ProductsController productsController = new ProductsController(mock.Object);
+            repositoryStub.Setup(p => p.GetProducts()).ReturnsAsync(productDTO);
+            ProductsController productsController = new ProductsController(repositoryStub.Object);
             var result = await productsController.GetProducts(0,10);
             
             Assert.IsType<OkObjectResult>(result);
         }
 
         [Fact]
-        public async Task GetProduct_ShouldReturnProductBasedOnId()
+        public async Task GetProductsAync_WithExistingItem_ReturnsExpectedItemsById()
         {
             var expectedResponse = new Product()
             {
@@ -199,15 +200,15 @@ namespace ShopBridgeUnitTest
                     CategoryName = "Mobiles"
                 }
             };
-            mock.Setup(p => p.GetProduct(1)).ReturnsAsync(expectedResponse);
-            ProductsController productsController = new ProductsController(mock.Object);
+            repositoryStub.Setup(p => p.GetProduct(1)).ReturnsAsync(expectedResponse);
+            ProductsController productsController = new ProductsController(repositoryStub.Object);
             var actualResponse = await productsController.GetProduct(1);
 
             Assert.Equal(expectedResponse.ProductId, actualResponse.Value.ProductId);
         }
 
         [Fact]
-        public async Task UpdateProduct_ShouldUpdateTheProduct()
+        public async Task UpdateProductAsync_ShouldUpdateTheProduct()
         {
             var expectedResponse = new Product()
             {
@@ -225,8 +226,8 @@ namespace ShopBridgeUnitTest
                 }
             };
 
-            mock.Setup(p => p.GetProduct(1)).ReturnsAsync(expectedResponse);
-            ProductsController productsController = new ProductsController(mock.Object);
+            repositoryStub.Setup(p => p.GetProduct(1)).ReturnsAsync(expectedResponse);
+            ProductsController productsController = new ProductsController(repositoryStub.Object);
             var actualResponse = await productsController.UpdateProduct(1, expectedResponse);
 
             Assert.Equal(expectedResponse.ProductName, actualResponse.Value.ProductName);
@@ -234,7 +235,7 @@ namespace ShopBridgeUnitTest
         }
 
         [Fact]
-        public async Task DeleteProduct_ShouldDeleteTheProduct()
+        public async Task DeleteProductAsync_ShouldDeleteTheProduct()
         {
             var expectedResponse = new Product()
             {
@@ -252,15 +253,15 @@ namespace ShopBridgeUnitTest
                 }
             };
 
-            mock.Setup(p => p.GetProduct(10)).ReturnsAsync(expectedResponse);
-            ProductsController productsController = new ProductsController(mock.Object);
+            repositoryStub.Setup(p => p.GetProduct(10)).ReturnsAsync(expectedResponse);
+            ProductsController productsController = new ProductsController(repositoryStub.Object);
             var result = await productsController.DeleteProduct(10);
 
             Assert.IsType<OkObjectResult>(result);
         }
 
         [Fact]
-        public async Task AddProduct_ShouldAddNewProduct()
+        public async Task AddProductAsync_ShouldAddNewProduct()
         {
             var itemToCreate = new Product()
             {
@@ -279,7 +280,7 @@ namespace ShopBridgeUnitTest
             };
 
             //mock.Setup(p => p.GetProduct(10)).ReturnsAsync(itemToCreate);
-            ProductsController productsController = new ProductsController(mock.Object);
+            ProductsController productsController = new ProductsController(repositoryStub.Object);
 
             var result = await productsController.CreateProduct(itemToCreate);
             Assert.IsType<CreatedAtActionResult>(result);

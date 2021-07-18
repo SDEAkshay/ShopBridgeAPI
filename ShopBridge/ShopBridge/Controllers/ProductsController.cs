@@ -20,6 +20,7 @@ namespace ShopBridge.Controllers
             this.productRepository = productRepository;
         }
 
+        // GET /api/products
         [HttpGet]
         public async Task<ActionResult> GetProducts([FromQuery] int page, [FromQuery] int page_size)
         {
@@ -37,6 +38,7 @@ namespace ShopBridge.Controllers
             }
         }
 
+        // GET /api/products/{id}
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -57,6 +59,7 @@ namespace ShopBridge.Controllers
             }
         }
 
+        // POST /api/products
         [HttpPost]
         public async Task<ActionResult<Product>> CreateProduct(Product product)
         {
@@ -77,6 +80,7 @@ namespace ShopBridge.Controllers
             }
         }
 
+        // PUT /api/products/{id}
         [HttpPut("{id:int}")]
         public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
         {
@@ -101,6 +105,7 @@ namespace ShopBridge.Controllers
             }
         }
 
+        // DELETE /api/products/{id}
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteProduct(int id)
         {
