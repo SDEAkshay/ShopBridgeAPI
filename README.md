@@ -1,5 +1,5 @@
 
-# BridgeShop
+# ShopBridge API
 
 BridgeShop is an API that provides Product and Category data. For example, Product admin want the product data to be available at an endpoint that looks like the following.
  
